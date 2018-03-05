@@ -10,7 +10,7 @@ var VerifyToken = require('../auth/VerifyToken');
 
 router.get('/', VerifyToken, function(req, res, next) {
 
-   db.query('SELECT * FROM tb_ordem', function(err, result) {
+   db.query('SELECT * FROM tb_ordem where usuarioid = ?', req.userId, function(err, result) {
       	if (err) {
       		res.status(404).send({msg:'Algo inexperado aconteceu tente novamente.'});
       	} 
@@ -20,6 +20,9 @@ router.get('/', VerifyToken, function(req, res, next) {
 });
 
 router.post('/', VerifyToken, function(req, res, next) {
+	if(!req.body.data || !req.body.qtdbtc || !req.body.valorporbtc || !req.body.tipo) {
+		res.status(404).send({msg: 'Requisão incorreta.'});
+	}
 	const ordem = {
 		usuarioid: req.userId,
 		data: req.body.data,

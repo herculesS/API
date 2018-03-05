@@ -6,8 +6,11 @@ const connection = mysql.createConnection({
   database: 'apidb'
 });
 connection.connect((err) => {
-  if (err) throw err;
-  console.log('Connected!');
+  if (err) {
+  	console.log('Erro ao se conectar à database.');
+  	throw err;
+  }
+  
 });
 
 module.exports = connection;

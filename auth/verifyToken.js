@@ -11,7 +11,6 @@ function verifyToken(req, res, next) {
     return res.status(500).send({ auth: false, message: 'Falha de autenticação. Tente novamente.' });
 
     // if everything good, save to request for use in other routes
-    console.log(decoded);
     req.userId = decoded._id;
     next();
   });

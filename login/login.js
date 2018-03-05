@@ -13,7 +13,10 @@ var db = require('../db');
 router.post('/', function(req, res) {
 
   db.query('SELECT * FROM tb_usuario WHERE email like ?', req.body.email, function(err, result) {
+  		console.log(result);
     	if (err) {
+      		res.status(404).json({msg: "Erro no login!"});
+      	} else if (result.length == 0) {
       		res.status(404).json({msg: "Erro no login!"});
       	} else {
       		if(!bcrypt.compareSync(req.body.senha,result[0].senha)){
