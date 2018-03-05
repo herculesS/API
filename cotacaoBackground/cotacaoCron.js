@@ -1,34 +1,32 @@
 var CronJob = require('cron').CronJob;
 var db = require('../db');
 const Poloniex = require('poloniex-api-node');
+var CoinMarketCap = require("node-coinmarketcap");
+
 let poloniex = new Poloniex();
+var coinmarketcap = new CoinMarketCap();
+
 
 var job = new CronJob('* * * * *', function() {
- 
-	poloniex.returnTicker((err, ticker) => {
-  		if (err) {
-    		//console.log(err.message);
-  		} else {
-    		cotacao = {
+	coinmarketcap.get("bitcoin", coin => {
+  		cotacao = {
 				moeda: 'BTC',
-				valor: ticker['BTC_ETH'].last,
+				valor: coin.price_usd,
 				data: new Date(),
-				exchange: 'BTC_ETH' 
+				exchange: 'USD_BTC' 
 				};
 
 				db.query('INSERT INTO tb_cotacao SET ?', cotacao, function(err, result) {
       				if (err) {
-      					throw err;
-      				} 
+      					console.log(err);
+      				}
       				
 	    		});
-    
-    	}
 	});
-	
-  }, null,
-  true, 
-  'America/Sao_Paulo'
-);
+ 
+   }, null,
+   true, 
+   'America/Sao_Paulo'
+ );
 
 module.exports = job;

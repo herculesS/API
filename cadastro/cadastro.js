@@ -12,8 +12,6 @@ var config = require('../config');
 
 
 router.post('/', function(req, res) {
-	console.log(req.body);
-  
   var hashedPassword = bcrypt.hashSync(req.body.senha, 8);
   
   const usuario = { email: req.body.email,
@@ -21,12 +19,12 @@ router.post('/', function(req, res) {
   					};
   db.query('INSERT INTO tb_usuario SET ?', usuario, function(err, result) {
       if (err) {
-      	throw err;
+      	res.status(404).send({msg: 'Cadastro não realizado. Tente novamente.'})
       } 
       	var token = jwt.sign({_id: result.insertId} , config.secret, {
-      	expiresIn: 86400 // expires in 24 hours
+      	expiresIn: 7200
     	});
-    	res.status(200).send({ auth: true, token: token });
+    	res.status(201).send({ auth: true, token: token });
     });
 
   

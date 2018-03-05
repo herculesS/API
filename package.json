@@ -23,6 +23,7 @@
     "express": "^4.16.2",
     "jsonwebtoken": "^8.2.0",
     "mysql": "^2.15.0",
+    "node-coinmarketcap": "^0.2.0",
     "poloniex-api-node": "^1.8.1"
   }
 }
