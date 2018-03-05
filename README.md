@@ -1,5 +1,9 @@
 "# API - teste de desenvolvimento"
 
+Autor
+	
+	Hercules Silva Nunes
+
 Inicializacao do servidor
 	
 	node server.js
@@ -33,3 +37,4 @@ Módulos utilizados
     "node-coinmarketcap": "^0.2.0",
     "poloniex-api-node": "^1.8.1"
 
+Script de inicialização do banco de dados no arquivo initscript.sql
