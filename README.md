@@ -1,5 +1,9 @@
 "# API - teste de desenvolvimento"
 
+Inicializacao do servidor
+	
+	node server.js
+
 Funções publicas
 
 	/cadastro - espera um post com body json com email e senha. Retorna um token para acesso dos recursos privados.
